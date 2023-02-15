@@ -8,8 +8,8 @@ from thali_app.extensions import bcrypt
 
 
 class CityForm(FlaskForm):
-    """Form for adding/updating a GroceryStore."""
-    name = StringField("Store Name",
+    """Form for adding/updating a City."""
+    name = StringField("City Name",
         validators=[
             DataRequired(),
             Length(min=3, max=80, message="The city name needs to be between 3 and 80 chars")
@@ -18,11 +18,11 @@ class CityForm(FlaskForm):
             validators=[
             Length(min=0, max=80, message="The state name needs to be between 3 and 80 chars")
         ])
-    region = StringField("State",
+    region = StringField("Region",
             validators=[
             Length(min=0, max=80, message="The region name needs to be between 3 and 80 chars")
         ])
-    country = StringField("State",
+    country = StringField("Country",
         validators=[
         Length(min=3, max=80, message="The country name needs to be between 3 and 80 chars")
     ])
@@ -33,14 +33,14 @@ class DishForm(FlaskForm):
     name = StringField("Dish Name",
         validators=[
             DataRequired(),
-            Length(min=3, max=80, message= "The product name needs to be between 3 to 80 charcaters")
+            Length(min=3, max=80, message= "The dish name needs to be between 3 to 80 charcaters")
         ])
     short_desc = StringField("Short Description",
         validators=[
             DataRequired(),
             Length(min=0, max=250, message= "The description needs to be less than 250 charcaters")
         ])
-    price = FloatField("Price")
+    # price = FloatField("Price")
     category = SelectField("Category", choices=FoodCategory.choices())
     photo_url = StringField("Photo URL")
     city = QuerySelectField("City",

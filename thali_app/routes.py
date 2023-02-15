@@ -37,7 +37,7 @@ def new_City():
         db.session.add(new_city)
         db.session.commit()
 
-        flash("New City was successfully created.")
+        flash("New city was successfully created.")
         return redirect(url_for("main.city_detail", city_id=new_city.id))
 
     return render_template('new_city.html', form=form)
@@ -68,22 +68,22 @@ def new_dish():
 
 @main.route('/city/<city_id>', methods=['GET', 'POST'])
 @login_required
-def city_detail(store_id):
-    city = City.query.get(store_id)
+def city_detail(city_id):
+    city = City.query.get(city_id)
 
-    # Created a CityForm and pass in `obj=store`
-    form = City(obj=city)
+    # Created a CityForm and pass in `obj=city`
+    form = CityForm(obj=city)
 
     if form.validate_on_submit():
-        form.populate_obj(store)
+        form.populate_obj(city)
 
-        db.session.add(store)
+        db.session.add(city)
         db.session.commit()
-        flash("Store was updated successfully")
-        return redirect(url_for("main.store_detail", store_id=store.id))
+        flash("City was updated successfully")
+        return redirect(url_for("main.city_detail", city_id=city.id))
         
-    store = City.query.get(store_id)
-    return render_template('store_detail.html',store=store, form=form)
+    city = City.query.get(city_id)
+    return render_template('city_detail.html',city=city, form=form)
 
 @main.route('/dish/<dish_id>', methods=['GET', 'POST'])
 @login_required
@@ -109,7 +109,7 @@ def add_to_favorites_list(dish_id):
     current_user.favorites_list_user.append(dish)
     db.session.add(current_user)
     db.session.commit()
-    flash("dish has been successfully added to the favorites list.")
+    flash("Dish has been successfully added to the favorites list.")
     return redirect(url_for("main.favorites_list"))
 
 # Stretch Challenge: removes dish from current_user's favorites list
@@ -119,11 +119,11 @@ def remove_from_favorites_list(dish_id):
     current_user.favorites_list_user.remove(dish)
     db.session.add(current_user)
     db.session.commit()
-    flash("dish has been successfully removed from the favorites list.")
+    flash("Dish has been successfully removed from the favorites list.")
     return redirect(url_for("main.favorites_list"))
 
-# ... get logged in user's favorites list dishs ...
-# ... display favorites list dishs in a template ...
+# ... get logged in user's favorites list dishes ...
+# ... display favorites list dishes in a template ...
 @main.route('/favorites_list')
 @login_required
 def favorites_list():

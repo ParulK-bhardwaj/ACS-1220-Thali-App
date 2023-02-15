@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Shopping List</h1>
-    {% for item in shopping_list %}
-        <div class="shopping-list">
-            <p>{{ loop.index }}. <a href="/item/{{ item.id }}">{{ item.name }}</a></p>
-            <a href="/item/{{ item.id }}"><img src="{{ item.photo_url }}" width="125px" height="125px"></a>
-            <p><strong>Price: $</strong>{{ item.price }}</p>
-            <form action="/remove_from_shopping_list/{{ item.id }}" method="post">
-                <input type="submit" value="Remove Item"/>
+<h1>Food Bucket List</h1>
+    {% for dish in favorites_list %}
+        <div class="favorites-list">
+            <p>{{ loop.index }}. <a href="/dish/{{ dish.id }}">{{ dish.name }}</a></p>
+            <a href="/dish/{{ dish.id }}"><img src="{{ dish.photo_url }}" width="125px" height="125px"></a>
+            <p><strong>Description: </strong>{{ dish.short_desc}}</p>
+            <form action="/remove_from_favorites_list/{{ dish.id }}" method="post">
+                <input type="submit" value="Remove dish"/>
             </form>
         </div>
     {% endfor %}
