@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Dish - {{ dish.name }}</h1>
+<form action="/add_to_favorites_list/{{ dish.id }}" method="post">
+    <input type="submit" value="Add to list">
+</form>
+<p><img src="{{ dish.photo_url }}" width="250px" height="250px"></p>
+
+<p><strong>Short Description: </strong> {{ dish.short_desc }}</p>
+
+<p><strong>Category: </strong> {{ dish.category }}</p>
+
+<p><strong>City: </strong> {{ dish.city.name }}</p>
+
+<p><strong>State: </strong> {{ dish.city.state}}</p>
+
+<p><strong>Country: </strong> {{ dish.city.country}}</p>
+
+<p><strong>Created By: </strong>{{ dish.created_by }}</p>
+
+<h2>Edit Dish</h2>
+
+<form method="POST" action="{{ url_for('main.dish_detail', dish_id=dish.id) }}">
+    {{ form.csrf_token }}
+    <fieldset>
+        <legend>Please enter your information:</legend>
+
+        {{ form.name.label }}
+        {{ form.name }}
+
+        {{ form.short_desc.label }}
+        {{ form.short_desc }}
+
+        {{ form.category.label }}
+        {{ form.category }}
+        
+        {{ form.photo_url.label }}
+        {{ form.photo_url }}
+
+        {{ form.city.label }}
+        {{ form.city }}
+
+        {{ form.submit }}
+    </fieldset>
+</form>
+
+{% endblock %}

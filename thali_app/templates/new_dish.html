@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>New Dish</h1>
+
+<form method="POST" action="{{ url_for('main.new_item') }}">
+    {{ form.csrf_token }}
+    <fieldset>
+        <legend>Please enter product information:</legend>
+
+        {{ form.name.label }}
+        {{ form.name }}
+
+        <!-- Show Form errors -->
+        <ul>
+            {% for error in form.name.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+        {{ form.short_desc.label }}
+        {{ form.short_desc }}
+
+        <ul>
+            {% for error in form.short_desc.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+        {{ form.category.label }}
+        {{ form.category }}
+        
+        {{ form.photo_url.label }}
+        {{ form.photo_url }}
+
+        {{ form.city.label }}
+        {{ form.city }}
+
+        {{ form.submit }}
+        
+    </fieldset>
+</form>
+
+{% endblock %}

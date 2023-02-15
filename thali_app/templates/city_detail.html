@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>City - {{ city.name }}</h1>
+<p>
+    <strong>State: </strong> {{ city.state }}
+</p>
+
+<p>
+    <strong>Region: </strong> {{ city.region }}
+</p>
+
+<p>
+    <strong>Country: </strong> {{ city.country }}
+</p>
+
+<p>
+    <strong>Created By: </strong> {{ city.created_by }}
+</p>
+
+<h2>Dishes</h2>
+
+<div class="dishes">
+    {% for dish in city.dishes %}
+    <div class="dish-details">
+        <a href="/dish/{{ dish.id }}"><img src="{{ dish.photo_url }}" alt="{{ dish.name }}" width="200px"></a>
+        <p><strong>{{ dish.name }}</strong></p>
+    </div>
+    {% endfor %}
+</div>
+
+
+<h2>Edit City</h2>
+
+<form method="POST" action="{{ url_for('main.city_detail', city_id=city.id) }}">
+    {{ form.csrf_token }}
+    <fieldset>
+        <legend>Please enter your information:</legend>
+        {{ form.title.label }}
+        {{ form.title }}
+
+        {{ form.address.label }}
+        {{ form.address }}
+
+        {{ form.submit }}
+
+    </fieldset>
+</form>
+
+{% endblock %}

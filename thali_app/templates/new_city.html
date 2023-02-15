@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>New City</h1>
+
+<form method="POST" action="{{ url_for('main.new_city') }}">
+    {{ form.csrf_token }}
+    <fieldset>
+        <legend>Please enter city information:</legend>
+
+        {{ form.name.label }}
+        {{ form.name }}
+
+        <!-- Show Form errors -->
+        <ul>
+            {% for error in form.name.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+        {{ form.state.label }}
+        {{ form.state }}
+        <ul>
+            {% for error in form.state.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+        {{ form.region.label }}
+        {{ form.region }}
+        <ul>
+            {% for error in form.region.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+        {{ form.country.label }}
+        {{ form.country }}
+        <ul>
+            {% for error in form.country.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+        {{ form.submit }}
+    </fieldset>
+</form>
+
+{% endblock %}

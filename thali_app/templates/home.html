@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Thali - Must Eats</h1>
+
+<p><em>PUT ABOUT HERE!!!!!!!!!!!!!!!!!!!!</em></p>
+
+<h2>All Cities</h2>
+
+{% for city in all_cities %}
+<div class="city">
+    <a href="/city/{{ city.id }}">{{ city.name }}</a> - 
+    {{ city.dishes|length }} dishes
+    <p><strong>State</strong> {{ city.state }}</p>
+    <p><strong>Country</strong> {{ city.country }}</p>
+</div>
+{% endfor %}
+
+{% endblock %}

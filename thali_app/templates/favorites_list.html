@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Shopping List</h1>
+    {% for item in shopping_list %}
+        <div class="shopping-list">
+            <p>{{ loop.index }}. <a href="/item/{{ item.id }}">{{ item.name }}</a></p>
+            <a href="/item/{{ item.id }}"><img src="{{ item.photo_url }}" width="125px" height="125px"></a>
+            <p><strong>Price: $</strong>{{ item.price }}</p>
+            <form action="/remove_from_shopping_list/{{ item.id }}" method="post">
+                <input type="submit" value="Remove Item"/>
+            </form>
+        </div>
+    {% endfor %}
+{% endblock %}
