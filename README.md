@@ -16,7 +16,7 @@ python3 app.py
 ```
 
 # Site:
-![Grocery Store Site Home Page](./app_homepage.png)
+![Thali - Must Eats Home Page](./app_homepage.png)
 
 # Store Homepage:
-![Grocery Store Home Page](./Store_homepage.png)
+![City Home Page](./city_homepage.png)
