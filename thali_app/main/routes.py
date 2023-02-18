@@ -1,7 +1,7 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_required, current_user
 from thali_app.models import City, Dish, User
-from thali_app.main.forms import CityForm, DishForm, LoginForm, SignUpForm
+from thali_app.main.forms import CityForm, DishForm
 # Import app and db from events_app package so that we can run app
 from thali_app.extensions import app, db, bcrypt
 
