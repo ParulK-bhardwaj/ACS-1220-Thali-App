@@ -1,6 +1,18 @@
 
+#content {
+    background-image: 
+    linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(163, 163, 165, 0.73)),
+    url("/static/img/background.jpeg");
+    background-color: #cccccc;
+    background-size: cover;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+    font-family: 'Open Sans', sans-serif;
+}
+
 body {
-    background-image: url("https://img.freepik.com/free-photo/indoor-hotel-view_1417-1566.jpg");
+    background-image: url("/static/img/background.jpeg");
     background-color: #cccccc;
     background-size: cover;
     display: flex;
@@ -10,9 +22,9 @@ body {
 }
 
 #content {
-    width: 70%;
-    background-color: white;
-    padding: 20px;
+    width: 100%;
+    background-color: rgb(237, 238, 241);
+    /* padding: 20px; */
 }
 
 nav {
@@ -26,7 +38,7 @@ nav a {
     color: navy;
     text-decoration: none;
     border: 1px solid black;
-    padding: 1px 5px;
+    padding: 0 5px;
     font-size: 1.2em;
 }
 

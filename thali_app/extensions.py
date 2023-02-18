@@ -29,14 +29,14 @@ bcrypt = Bcrypt(app)
 
 #  Main Blueprint
 
-from thali_app.routes import main
+from thali_app.main.routes import main
 app.register_blueprint(main)
 
 with app.app_context(): 
     db.create_all()
 
 # Auth Blueprint
-from thali_app.routes import auth
+from thali_app.auth.routes import auth
 app.register_blueprint(auth)
 
 with app.app_context(): 

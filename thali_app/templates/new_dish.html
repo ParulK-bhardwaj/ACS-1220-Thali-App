@@ -3,10 +3,10 @@
 
 <h1>New Dish</h1>
 
-<form method="POST" action="{{ url_for('main.new_item') }}">
+<form method="POST" action="{{ url_for('main.new_dish') }}">
     {{ form.csrf_token }}
     <fieldset>
-        <legend>Please enter product information:</legend>
+        <legend>Please enter details of your favorite Dish:</legend>
 
         {{ form.name.label }}
         {{ form.name }}

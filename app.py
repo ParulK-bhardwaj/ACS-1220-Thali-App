@@ -1,7 +1,10 @@
 from thali_app.extensions import app, db
-from thali_app.routes import main
+from thali_app.main.routes import main
+from thali_app.auth.routes import auth
+
 
 app.register_blueprint(main)
+app.register_blueprint(auth)
 
 with app.app_context():
     db.create_all()

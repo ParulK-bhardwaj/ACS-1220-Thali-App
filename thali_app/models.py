@@ -5,9 +5,9 @@ from thali_app.utils import FormEnum
 
 class FoodCategory(FormEnum):
     """Categories of grocery items."""
-    VEGAN = 'Vegan'
     VEGETARIAN = 'Vegetarian'
     NONVEGETARIAN = 'Non-vegetarian'
+    VEGAN = 'Vegan'
     PANTRY = 'Pantry'
     FROZEN = 'Frozen'
     OTHER = 'Other'
@@ -25,7 +25,7 @@ class City(db.Model):
     created_by = db.relationship('User')
 
     def __str__(self):
-        return {self.name}
+        return f"{self.name}"
     
     def __repr__(self):
         return f"<{self.id}:{self.name}>"
@@ -67,7 +67,7 @@ class User(UserMixin, db.Model):
         'Dish', secondary='user_favorites_list', back_populates='favorites_list_dishes')
 
     def __str__(self):
-        return {self.username}
+        return f"{self.username}"
 
     def __repr__(self):
         return f'<User: {self.username}>'
