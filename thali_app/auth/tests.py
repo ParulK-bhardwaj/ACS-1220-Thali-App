@@ -1,10 +1,9 @@
 import os
 from unittest import TestCase
 import app
-# from datetime import date
- 
+
 from thali_app.extensions import app, db, bcrypt
-from thali_app.models import City, Dish, User, FoodCategory
+from thali_app.models import City, User
 
 """
 Run these tests with the command:
@@ -16,7 +15,7 @@ python3 -m unittest thali_app.auth.tests
 #################################################
 
 def create_cities():
-    u1 = User(name='Jane Doe')
+    u1 = User(username='Jane Doe')
     c1 = City(
         name='Udaipur',
         state='Rajasthan',
@@ -26,7 +25,7 @@ def create_cities():
     )
     db.session.add(c1)
 
-    u2 = User(name='Yes Sir')
+    u2 = User(username='Yes Sir')
     c2 = City(
         name='Jaipur',
         state='Rajasthan',

@@ -26,6 +26,10 @@ class CityForm(FlaskForm):
         validators=[
         Length(min=3, max=80, message="The country name needs to be between 3 and 80 chars")
     ])
+    short_desc = StringField("Short Description",
+        validators=[
+            Length(min=0, max=250, message= "The description needs to be less than 250 charcaters")
+    ])
     submit = SubmitField("Submit")
 
 class DishForm(FlaskForm):
@@ -34,14 +38,17 @@ class DishForm(FlaskForm):
         validators=[
             DataRequired(),
             Length(min=3, max=80, message= "The dish name needs to be between 3 to 80 charcaters")
-        ])
+    ])
     short_desc = StringField("Short Description",
         validators=[
             Length(min=0, max=250, message= "The description needs to be less than 250 charcaters")
-        ])
-    # price = FloatField("Price")
+    ])
     category = SelectField("Category", choices=FoodCategory.choices())
     photo_url = StringField("Photo URL")
+    where_to_eat = StringField("Where to Eat",
+        validators=[
+            Length(min=0, max=250, message= "The name needs to be less than 250 charcaters")
+    ])
     city = QuerySelectField("City",
         query_factory=lambda: City.query, allow_blank=False)
     submit = SubmitField("Submit")

@@ -19,6 +19,7 @@ class City(db.Model):
     state = db.Column(db.String(80), nullable=False)
     region = db.Column(db.String(80), nullable=False)
     country = db.Column(db.String(80), nullable=False)
+    short_desc = db.Column(db.String(500), nullable=False)
     dishes = db.relationship('Dish', back_populates='city')
 
     created_by_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -40,6 +41,8 @@ class Dish(db.Model):
     # The category - What category the dish relates to?
     category = db.Column(db.Enum(FoodCategory), default=FoodCategory.OTHER)
     photo_url = db.Column(URLType)
+    where_to_eat = db.Column(db.String(80), nullable=False)
+
     city_id = db.Column(
         db.Integer, db.ForeignKey('city.id'), nullable=False)
     city = db.relationship('City', back_populates='dishes')

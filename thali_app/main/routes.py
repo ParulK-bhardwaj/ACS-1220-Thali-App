@@ -21,7 +21,7 @@ def homepage():
 
 @main.route('/new_city', methods=['GET', 'POST'])
 @login_required
-def new_City():
+def new_city():
     # Created a CityForm
     form = CityForm()
 
@@ -31,6 +31,7 @@ def new_City():
             state=form.state.data,
             region=form.region.data,
             country=form.country.data,
+            short_desc=form.short_desc.data,
             created_by=current_user
         )
         db.session.add(new_city)
@@ -53,6 +54,7 @@ def new_dish():
             short_desc=form.short_desc.data,
             category=form.category.data,
             photo_url=form.photo_url.data,
+            where_to_eat=form.where_to_eat.data,
             city=form.city.data,
             created_by=current_user
         )
@@ -78,6 +80,7 @@ def city_detail(city_id):
 
         db.session.add(city)
         db.session.commit()
+      
         flash("City was updated successfully")
         return redirect(url_for("main.city_detail", city_id=city.id))
         
