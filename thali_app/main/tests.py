@@ -163,7 +163,7 @@ class MainTests(unittest.TestCase):
             'state': 'Rajasthan',
             'region': "",
             'country': "India",
-            'created_by': 2,
+            'created_by_id': 2,
         }
         self.app.post('/city/1', data=post_data)
         
