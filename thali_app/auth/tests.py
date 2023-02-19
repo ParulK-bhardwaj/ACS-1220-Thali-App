@@ -15,24 +15,27 @@ python3 -m unittest thali_app.auth.tests
 #################################################
 
 def create_cities():
-    u1 = User(username='Jane Doe')
+    # Creates cities
+    u1 = User(username='me1', password='password')
     c1 = City(
         name='Udaipur',
         state='Rajasthan',
         region="North-West",
         country="India",
+        short_desc="ABC",
         created_by=u1
     )
     db.session.add(c1)
 
-    u2 = User(username='Yes Sir')
+    u2 = User(username='Yes Sir', password='password')
     c2 = City(
         name='Jaipur',
         state='Rajasthan',
         region="North-West",
         country="India",
+        short_desc="DEF",
         created_by=u2
-        )
+    )
     db.session.add(c2)
     db.session.commit()
 

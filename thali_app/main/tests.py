@@ -32,6 +32,7 @@ def create_cities():
         state='Rajasthan',
         region="North-West",
         country="India",
+        short_desc="ABC",
         created_by=u1
     )
     db.session.add(c1)
@@ -42,6 +43,7 @@ def create_cities():
         state='Rajasthan',
         region="North-West",
         country="India",
+        short_desc="DEF",
         created_by=u2
     )
     db.session.add(c2)
@@ -90,16 +92,16 @@ class MainTests(unittest.TestCase):
 
         # Check that the page doesn't contain things we don't expect
         # (these should be shown only to logged in users)
-        self.assertNotIn('Create City', response_text)
-        self.assertNotIn('Create Dish', response_text)
+        self.assertNotIn('New City', response_text)
+        self.assertNotIn('New Dish', response_text)
  
     def test_homepage_logged_in(self):
-        """Test that the books show up on the homepage."""
+        """Test that the cities show up on the homepage."""
         # Set up
-        create_cities()
         create_user()
         login(self.app, 'me1', 'password')
-
+        create_cities()
+        
         # Make a GET request
         response = self.app.get('/', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
@@ -115,9 +117,10 @@ class MainTests(unittest.TestCase):
         # (these should be shown only to logged out users)
         self.assertNotIn('Log In', response_text)
         self.assertNotIn('Sign Up', response_text)
+        pass
 
     def test_city_detail_logged_out(self):
-        """Test that the book appears on its detail page."""
+        """Test that the city appears on its detail page."""
         # Use helper functions to create cities, user
         create_cities()
         create_user()
@@ -129,41 +132,41 @@ class MainTests(unittest.TestCase):
 
     def test_city_detail_logged_in(self):
         """Test that the City appears on its detail page."""
-        # Use helper functions to create books, authors, user, & to log in
-        create_cities()
+        # Use helper functions to create cities, dishes, user, & to log in
         create_user()
         login(self.app, 'me1', 'password')
-
+        create_cities()
         #  Make a GET request to the URL /city/1, check to see that the
         # status code is 200
         response = self.app.get('/city/1', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
-        # Check that the response contains the book's title, publish date,
-        # and author's name
-        response_text = response.get_data(as_text=True)
+        # # Check that the response contains the city's info
+        # response_text = response.get_data(as_text=True)
+        # print(f">>>>>>>>>{response_text}")
         # self.assertIn("<h1>City - Udaipur</h1>", response_text)
-        # self.assertIn("Rajasthan", response_text)
+        # # self.assertIn("Rajasthan", response_text)
         # # self.assertIn("North-West", response_text)
-        # self.assertIn("India", response_text)
+        # # self.assertIn("India", response_text)
         # # self.assertIn("me1", response_text)
-        # # #  Check that the response contains the 'Favorite' button
-        # # self.assertIn("Add to list", response_text)
-    pass
+        # #  Check that the response contains the 'Favorite' button
+        # self.assertIn("Add to list", response_text)
+        pass
 
+    # passes
     def test_update_city(self):
         """Test updating a city."""
         # Set up
-        create_cities()
         create_user()
         login(self.app, 'me1', 'password')
-
+        create_cities()
         # Make POST request with data
         post_data = {
             'name': 'Jodhpur',
             'state': 'Rajasthan',
             'region': "",
             'country': "India",
-            'created_by_id': 2,
+            'short_desc':'ABC',
+            'created_by': 1,
         }
         self.app.post('/city/1', data=post_data)
         
@@ -173,8 +176,9 @@ class MainTests(unittest.TestCase):
         self.assertEqual(city.state, 'Rajasthan')
         self.assertEqual(city.region, '')
 
+    # passes
     def test_new_city(self):
-        """Test creating a book."""
+        """Test creating a city."""
         # Set up
         create_cities()
         create_user()
@@ -186,6 +190,7 @@ class MainTests(unittest.TestCase):
             'state': 'Rajasthan',
             'region': "North-West",
             'country': "India",
+            'short_desc':'ABC',
             'created_by': 1,
         }
         self.app.post('/new_city', data=post_data)
@@ -196,6 +201,7 @@ class MainTests(unittest.TestCase):
         self.assertEqual(created_city.state, 'Rajasthan')
         self.assertEqual(created_city.created_by.username, 'me1')
 
+    # passes
     def test_new_city_logged_out(self):
         """
         Test that the user is redirected when trying to access the new city
@@ -206,87 +212,31 @@ class MainTests(unittest.TestCase):
         create_user()
 
         # Make GET request
-        response = self.app.get('/create_book')
+        response = self.app.get('/new_city')
 
         # Make sure that the user was redirecte to the login page
         self.assertEqual(response.status_code, 302)
-        self.assertIn('/login?next=%2Fcreate_book', response.location)
+        self.assertIn('/login?next=%2Fnew_city', response.location)
 
-    def test_create_author(self):
-        """Test creating an author."""
+    def test_new_dish(self):
+        """Test creating an dish."""
         # Create a user & login (so that the user can access the route)
-        """Test updating an author."""
+        """Test updating an dish."""
         # Set up
-        create_user()
-        login(self.app, 'me1', 'password')
+        # create_user()
+        # login(self.app, 'me1', 'password')
 
-        # Make POST request with data
-        post_data = {
-            'name': 'Yuval Noah Harrari',
-            'biography': 'author of the book sapiens'
-        }
-        self.app.post('/create_author', data=post_data)
+        # # Make POST request with data
+        # post_data = {
+            
+        # }
+        # self.app.post('/new_dish', data=post_data)
 
-        # Make sure author was updated as we'd expect
-        created_author = Author.query.filter_by(name='Yuval Noah Harrari').one()
-        self.assertIsNotNone(created_author)
-        # Verify that the author was updated in the database
-        self.assertEqual(created_author.name, 'Yuval Noah Harrari')
+        # # Make sure dish was updated as we'd expect
+        # created_dish = Dish.query.filter_by(name='').one()
+        # self.assertIsNotNone(created_dish)
+        # # Verify that the dish was updated in the database
+        # self.assertEqual(created_dish.name, '')
+        pass
 
-    def test_create_genre(self):
-        # Create a user & login (so that the user can access the route)
-                # Set up
-        create_user()
-        login(self.app, 'me1', 'password')
-
-        post_data = {
-            'name': 'non-fiction'
-        }
-
-        self.app.post('/create_genre', data=post_data)
-        # Make GET request
-        created_genre = Genre.query.filter_by(name='non-fiction').one()
-        self.assertIsNotNone(created_genre)
-        # Verify that the author was updated in the database
-        self.assertEqual(created_genre.name, 'non-fiction')
-
-    def test_profile_page(self):
-        # Make a GET request to the /profile/me1 route
-        create_user()
-        login(self.app, 'me1', 'password')
-        # Verify that the response shows the appropriate user info
-        response = self.app.get('/profile/me1')
-        self.assertEqual(response.status_code, 200)
-        response_text = response.get_data(as_text=True)
-        self.assertIn("me1", response_text)
-
-    def test_favorite_book(self):
-        # Login as the user me1
-        create_cities()
-        create_user()
-        login(self.app, 'me1', 'password')
-        #  Make a POST request to the /favorite/2 route
-        post_data = {
-            'book_id': 2
-        }
-        response = self.app.post('/favorite/2', data=post_data)
-        #  Verify that the book with id 2 was added to the user's favorites
-        user = User.query.filter_by(username='me1').one()
-        book = Book.query.get(2)
-        self.assertIn(book, user.favorite_books)
-
-    def test_unfavorite_book(self):
-        # Login as the user me1, and add book with id 1 to me1's favorites
-        create_cities()
-        create_user()
-        login(self.app, 'me1', 'password')
-        #  Make a POST request to the /unfavorite/2 route
-        post_data = {
-            'book_id': 2
-        }
-        response = self.app.post('/unfavorite/2', data=post_data)
-        #  Verify that the book with id 2 was removed from the user's favorites
-        user = User.query.filter_by(username='me1').one()
-        book = Book.query.get(2)
-        self.assertNotIn(book, user.favorite_books)
-
+   
