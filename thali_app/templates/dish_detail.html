@@ -5,17 +5,18 @@
 <form action="/add_to_favorites_list/{{ dish.id }}" method="post">
     <input type="submit" value="Add to list">
 </form>
+<form action="/dish/{{ dish.id }}/rate" method="post">
+    <input type="submit" value="Rate the Dish">
+</form>
 <p><img src="{{ dish.photo_url }}" width="250px" height="250px"></p>
 
 <p><strong>Short Description: </strong> {{ dish.short_desc }}</p>
 
+<p>Rating: {{ dish.rating }}</p>
+
 <p><strong>Category: </strong> {{ dish.category }}</p>
 
-<p><strong>City: </strong> {{ dish.city.name }}</p>
-
-<p><strong>State: </strong> {{ dish.city.state}}</p>
-
-<p><strong>Country: </strong> {{ dish.city.country}}</p>
+<p><strong>City: </strong> {{ dish.city.name }}, {{ dish.city.state}}, {{ dish.city.country}}</p>
 
 <p><strong>Created By: </strong>{{ dish.created_by }}</p>
 

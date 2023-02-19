@@ -1,15 +1,15 @@
+import datetime
 from sqlalchemy_utils import URLType
 from flask_login import UserMixin
 from thali_app.extensions import db
 from thali_app.utils import FormEnum
+from datetime import datetime
 
 class FoodCategory(FormEnum):
     """Categories of grocery items."""
     VEGETARIAN = 'Vegetarian'
     NONVEGETARIAN = 'Non-vegetarian'
     VEGAN = 'Vegan'
-    PANTRY = 'Pantry'
-    FROZEN = 'Frozen'
     OTHER = 'Other'
 
 class City(db.Model):
@@ -40,8 +40,12 @@ class Dish(db.Model):
 
     # The category - What category the dish relates to?
     category = db.Column(db.Enum(FoodCategory), default=FoodCategory.OTHER)
+
     photo_url = db.Column(URLType)
     where_to_eat = db.Column(db.String(80), nullable=False)
+
+    rating = db.Column(db.Float, default=0)
+    ratings = db.relationship('Rating', backref='dish', lazy=True)
 
     city_id = db.Column(
         db.Integer, db.ForeignKey('city.id'), nullable=False)
@@ -59,6 +63,13 @@ class Dish(db.Model):
     def __repr__(self):
         return f"<{self.id}:{self.name}>"
 
+class Rating(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    stars = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    dish_id = db.Column(db.Integer, db.ForeignKey('dish.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
 # many-to-many relationship between User and GroceryItem for the shopping list items that fixed the log in error. 
 class User(UserMixin, db.Model):
     "User Model"

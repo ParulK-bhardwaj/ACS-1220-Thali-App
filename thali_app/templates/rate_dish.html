@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Rate {{ dish.name }}</h1>
+  <form method="POST">
+    {{ form.csrf_token }}
+    <fieldset>
+      <div class="form-group">
+        <label>Stars</label>
+        {{ form.stars(class="form-control") }}
+        {{ form.submit }}
+      </div>
+    </fieldset>
+  </form>
+{% endblock %}

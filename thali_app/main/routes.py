@@ -1,7 +1,8 @@
+from os import abort
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
-from thali_app.models import City, Dish, User
-from thali_app.main.forms import CityForm, DishForm
+from thali_app.models import City, Dish, Rating, User
+from thali_app.main.forms import CityForm, DishForm, RatingForm
 # Import app and db from events_app package so that we can run app
 from thali_app.extensions import app, db, bcrypt
 
@@ -104,7 +105,32 @@ def dish_detail(dish_id):
     dish = Dish.query.get(dish_id)
     return render_template('dish_detail.html', dish=dish, form=form)
 
-# ... adds dish to current_user's favorites list
+# Allow user to rate the dish
+@main.route('/dish/<dish_id>/rate', methods=['GET', 'POST'])   
+@login_required
+def rate_dish(dish_id):
+    dish = Dish.query.get(dish_id)
+    form = RatingForm()
+    if form.validate_on_submit():
+        rating = Rating(
+            stars=float(form.stars.data), 
+            user_id=current_user.id, 
+            dish_id=dish_id
+        )
+        db.session.add(rating)
+        db.session.commit()
+        # Update the dish's cumulative rating
+        if dish:
+            total_ratings = sum([rating.stars for rating in dish.ratings])
+            num_ratings = len(dish.ratings)
+            dish.rating = round(total_ratings / num_ratings, 2)
+            db.session.commit()
+        flash('Thank you for rating this dish!', 'success')
+        return redirect(url_for('main.dish_detail', dish_id=dish_id))
+    return render_template('rate_dish.html', dish=dish, form=form)
+
+
+# adds dish to current_user's favorites list
 @main.route('/add_to_favorites_list/<dish_id>', methods=['POST'])
 def add_to_favorites_list(dish_id):
     dish = Dish.query.get(dish_id)
@@ -114,7 +140,7 @@ def add_to_favorites_list(dish_id):
     flash("Dish has been successfully added to the favorites list.")
     return redirect(url_for("main.favorites_list"))
 
-# Stretch Challenge: removes dish from current_user's favorites list
+# removes dish from current_user's favorites list
 @main.route('/remove_from_favorites_list/<dish_id>', methods=['POST'])
 def remove_from_favorites_list(dish_id):
     dish = Dish.query.get(dish_id)
