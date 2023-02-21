@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Thali - Must Eats</h1>
+
+<h2>All Dishes</h2>
+<ul>
+{% for dish in all_dishes %}
+    <li><a href="/dish/{{ dish.id }}">{{ dish.name }}
+        <p>{{ dish.city }}, {{ dish.state }}, {{ dish.country }} </p>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

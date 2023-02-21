@@ -20,30 +20,7 @@
 
 <p><strong>Created By: </strong>{{ dish.created_by }}</p>
 
-<h2>Edit Dish</h2>
-
-<form method="POST" action="{{ url_for('main.dish_detail', dish_id=dish.id) }}">
-    {{ form.csrf_token }}
-    <fieldset>
-        <legend>Please enter your information:</legend>
-
-        {{ form.name.label }}
-        {{ form.name }}
-
-        {{ form.short_desc.label }}
-        {{ form.short_desc }}
-
-        {{ form.category.label }}
-        {{ form.category }}
-        
-        {{ form.photo_url.label }}
-        {{ form.photo_url }}
-
-        {{ form.city.label }}
-        {{ form.city }}
-
-        {{ form.submit }}
-    </fieldset>
+<form action="/dish/{{ dish.id }}/edit" method="post">
+    <input type="submit" value="Edit the Dish">
 </form>
-
 {% endblock %}

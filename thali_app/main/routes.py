@@ -72,25 +72,54 @@ def new_dish():
 @login_required
 def city_detail(city_id):
     city = City.query.get(city_id)
+    return render_template('city_detail.html',city=city)
+
+# city edit
+@main.route('/city/<city_id>/edit', methods=['GET', 'POST'])
+@login_required
+def city_edit(city_id):
+    city = City.query.get(city_id)
+    print(city.id)
 
     # Created a CityForm and pass in `obj=city`
     form = CityForm(obj=city)
-
+    print(form.name)
     if form.validate_on_submit():
-        form.populate_obj(city)
+        print(f"????????{city.id}")
+        city.name = form.name.data
+        city.state = form.state.data
+        city.region = form.region.data
+        city.country = form.country.data
+        city.short_desc = form.short_desc.data
+        city.created_by = current_user
+        # form.populate_obj(city)
 
-        db.session.add(city)
         db.session.commit()
       
         flash("City was updated successfully")
         return redirect(url_for("main.city_detail", city_id=city.id))
         
     city = City.query.get(city_id)
-    return render_template('city_detail.html',city=city, form=form)
+    return render_template('city_edit.html',city=city, form=form)
 
+# All dishes route
+@main.route('/all_dishes')
+def all_dishes():
+    all_dishes = Dish.query.all()
+    print(all_dishes)
+    return render_template('all_dishes.html', all_dishes=all_dishes)  
+
+# dish details route
 @main.route('/dish/<dish_id>', methods=['GET', 'POST'])
 @login_required
 def dish_detail(dish_id):
+    dish = Dish.query.get(dish_id)
+    return render_template('dish_detail.html', dish=dish)
+
+# dish edit
+@main.route('/dish/<dish_id>/edit', methods=['GET', 'POST'])
+@login_required
+def dish_edit(dish_id):
     dish = Dish.query.get(dish_id)
     # Created a DishForm and pass in `obj=dish`
     form = DishForm(obj=dish)
@@ -103,7 +132,7 @@ def dish_detail(dish_id):
         return redirect(url_for("main.dish_detail",dish_id=dish.id))
 
     dish = Dish.query.get(dish_id)
-    return render_template('dish_detail.html', dish=dish, form=form)
+    return render_template('dish_edit.html', dish=dish, form=form)
 
 # Allow user to rate the dish
 @main.route('/dish/<dish_id>/rate', methods=['GET', 'POST'])   

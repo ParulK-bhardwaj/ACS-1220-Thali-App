@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Edit City</h2>
+
+<form method="POST" action="{{ url_for('main.city_edit', city_id=city.id) }}">
+    {{ form.csrf_token }}
+    <fieldset>
+        <legend>Please enter your information:</legend>
+        {{ form.name.label }}
+        {{ form.name }}
+
+        {{ form.state.label }}
+        {{ form.state }}
+
+        {{ form.region.label }}
+        {{ form.region }}
+
+        {{ form.country.label }}
+        {{ form.country }}
+
+        {{ form.short_desc.label }}
+        {{ form.short_desc }}
+
+        {{ form.submit }}
+
+    </fieldset>
+</form>
+
+{% endblock %}
+

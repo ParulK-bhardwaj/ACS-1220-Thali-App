@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, FloatField, SelectField, SubmitField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
-from wtforms.validators import DataRequired, Length, NumberRange
+from wtforms.validators import DataRequired, Length, NumberRange, ValidationError
 from thali_app.models import *
 from thali_app.extensions import bcrypt
 
@@ -27,7 +27,7 @@ class CityForm(FlaskForm):
     ])
     short_desc = StringField("Short Description",
         validators=[
-            Length(min=0, max=250, message= "The description needs to be less than 250 charcaters")
+            Length(min=0, max=250, message= "The description needs to be less than 250 characters")
     ])
     submit = SubmitField("Submit")
 
@@ -50,11 +50,16 @@ class DishForm(FlaskForm):
     ])
     city = QuerySelectField("City",
         query_factory=lambda: City.query, allow_blank=False)
+    
+    # state = QuerySelectField("State",
+    #     query_factory=lambda: City.query, allow_blank=False)
+    
+    # country = QuerySelectField("Country",
+    #     query_factory=lambda: City.query, allow_blank=False)
+    
     submit = SubmitField("Submit")
 
-# class RatingForm(FlaskForm):
-#     stars = SelectField('Stars', choices=[(1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5")], validators=[DataRequired(), NumberRange(min=1, max=5)])
-#     submit = SubmitField('Rate')
+
 
 class RatingForm(FlaskForm):
     stars = FloatField('Rating', validators=[NumberRange(min=1, max=5, message="Please enter a number between 1 and 5.")])

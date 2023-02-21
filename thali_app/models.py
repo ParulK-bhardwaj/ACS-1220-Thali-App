@@ -45,12 +45,12 @@ class Dish(db.Model):
     where_to_eat = db.Column(db.String(80), nullable=False)
 
     rating = db.Column(db.Float, default=0)
-    ratings = db.relationship('Rating', backref='dish', lazy=True)
+    ratings = db.relationship('Rating', backref='dish')
 
     city_id = db.Column(
         db.Integer, db.ForeignKey('city.id'), nullable=False)
     city = db.relationship('City', back_populates='dishes')
-
+    
     created_by_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created_by = db.relationship('User')
 

@@ -1,14 +1,14 @@
 
-#content {
+/* #content {
     background-image: 
     linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(163, 163, 165, 0.73)),
     url("/static/img/background.jpeg");
     background-color: #cccccc;
-    background-size: cover;
+    background-size: cover; */
     /* display: flex;
     flex-direction: column;
     align-items: center; */
-    font-family: 'Open Sans', sans-serif;
+    /* font-family: 'Open Sans', sans-serif;
 }
 
 body {
@@ -24,8 +24,8 @@ body {
 #content {
     width: 100%;
     background-color: rgb(237, 238, 241);
-    /* padding: 20px; */
-}
+    padding: 20px; */
+/* }
 
 nav {
     width: 100%;
@@ -86,4 +86,90 @@ div.dish-details {
     text-align: center;
     width: 250px;
     height: 300px;
+}
+*/
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* font-size: 16px; */
+    line-height: 1.5;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    background-color: rgb(245, 239, 239);
+}
+  
+
+/* page-header styles */
+.page-header {
+    background-image: url('/static/img/background.jpeg');
+    background-size: cover;
+    /* background-position: center center;
+    background-attachment: fixed; */
+    height: 500px;
+    position: relative;
+    color: #fff;
+}
+
+.page-header::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+  
+.page-header header {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 1;
+    font-size: 100px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    font-size: 1.5rem;
+    margin-right: 1.5rem;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+nav a:hover {
+    color: #fddb3a;
+}
+
+
+/* content styles */
+#content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.city {
+    margin-bottom: 2rem;
+}
+
+.city a {
+    color: #333;
+    font-size: 2rem;
+}
+
+.city a:hover {
+    text-decoration: underline;
 }
