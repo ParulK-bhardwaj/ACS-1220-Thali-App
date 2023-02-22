@@ -26,10 +26,10 @@ class City(db.Model):
     created_by = db.relationship('User')
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name}, {self.state}, {self.country}"
     
     def __repr__(self):
-        return f"<{self.id}:{self.name}>"
+        return f"{self.name}, {self.state}, {self.country}"
 
 
 class Dish(db.Model):
@@ -50,7 +50,10 @@ class Dish(db.Model):
     city_id = db.Column(
         db.Integer, db.ForeignKey('city.id'), nullable=False)
     city = db.relationship('City', back_populates='dishes')
-    
+    state = db.relationship('City', back_populates='dishes')
+    country = db.relationship('City', back_populates='dishes')
+
+
     created_by_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created_by = db.relationship('User')
 

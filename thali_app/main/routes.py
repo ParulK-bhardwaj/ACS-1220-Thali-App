@@ -57,6 +57,8 @@ def new_dish():
             photo_url=form.photo_url.data,
             where_to_eat=form.where_to_eat.data,
             city=form.city.data,
+            state = form.state.data,
+            country = form.country.data,
             created_by=current_user
         )
         
@@ -116,22 +118,48 @@ def dish_detail(dish_id):
     dish = Dish.query.get(dish_id)
     return render_template('dish_detail.html', dish=dish)
 
-# dish edit
+# # dish edit
+# @main.route('/dish/<dish_id>/edit', methods=['GET', 'POST'])
+# @login_required
+# def dish_edit(dish_id):
+#     dish = Dish.query.get(dish_id)
+#     # Created a DishForm and pass in `obj=dish`
+#     form = DishForm(obj=dish)
+#     if form.validate_on_submit():
+#         form.populate_obj(dish)
+#         dish.created_by = current_user
+
+#         db.session.add(dish)
+#         db.session.commit()
+#         flash("dish was updated successfully")
+#         return redirect(url_for("main.dish_detail",dish_id=dish.id))
+
+#     dish = Dish.query.get(dish_id)
+#     return render_template('dish_edit.html', dish=dish, form=form)
+
 @main.route('/dish/<dish_id>/edit', methods=['GET', 'POST'])
 @login_required
 def dish_edit(dish_id):
     dish = Dish.query.get(dish_id)
-    # Created a DishForm and pass in `obj=dish`
     form = DishForm(obj=dish)
+
     if form.validate_on_submit():
-        form.populate_obj(dish)
+        dish.name = form.name.data
+        dish.short_desc = form.short_desc.data
+        dish.category = form.category.data
+        dish.photo_url = form.photo_url.data
+        dish.where_to_eat = form.where_to_eat.data
+        dish.city = form.city.data
+        dish.created_by = current_user
 
-        db.session.add(dish)
         db.session.commit()
-        flash("dish was updated successfully")
-        return redirect(url_for("main.dish_detail",dish_id=dish.id))
+        flash("Dish was updated successfully")
+        return redirect(url_for("main.dish_detail", dish_id=dish.id))
 
-    dish = Dish.query.get(dish_id)
+    # Set state and country fields based on selected city
+    if dish.city:
+        form.set_city_info(dish.city)
+
     return render_template('dish_edit.html', dish=dish, form=form)
 
 # Allow user to rate the dish
