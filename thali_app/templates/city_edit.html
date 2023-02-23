@@ -10,17 +10,49 @@
         {{ form.name.label }}
         {{ form.name }}
 
+        <ul>
+            {% for error in form.name.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
         {{ form.state.label }}
         {{ form.state }}
+        <ul>
+            {% for error in form.state.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
 
         {{ form.region.label }}
         {{ form.region }}
 
+        <ul>
+            {% for error in form.region.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
         {{ form.country.label }}
         {{ form.country }}
 
+        <ul>
+            {% for error in form.country.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
         {{ form.short_desc.label }}
         {{ form.short_desc }}
+
+        <ul>
+            {% for error in form.short_desc.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+        {{ form.photo_url.label }}
+        {{ form.photo_url }}
 
         {{ form.submit }}
 

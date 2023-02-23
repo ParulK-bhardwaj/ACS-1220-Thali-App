@@ -32,18 +32,18 @@
 
         {{ form.where_to_eat.label }}
         {{ form.where_to_eat }}
+
+        <ul>
+            {% for error in form.where_to_eat.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+          </ul>
         
         {{ form.photo_url.label }}
         {{ form.photo_url }}
 
         {{ form.city.label }}
         {{ form.city }}
-
-        <!-- {{ form.state.label }}
-        {{ form.state }}
-
-        {{ form.country.label }}
-        {{ form.country }} -->
 
         {{ form.submit }}
         

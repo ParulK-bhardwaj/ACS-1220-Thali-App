@@ -6,9 +6,9 @@
 <h2>All Dishes</h2>
 <ul>
 {% for dish in all_dishes %}
-    <li><a href="/dish/{{ dish.id }}">{{ dish.name }}
-        <p>{{ dish.city }}, {{ dish.state }}, {{ dish.country }} </p>
-    </li>
+    <li><a href="/dish/{{ dish.id }}">{{ dish.name }} </li>
+        <p> {{ dish.city }} </p>
+        <a href="/dish/{{ dish.id }}"><img src="{{ dish.photo_url }}" alt="{{ dish.name }}" width="100px"></a>
 {% endfor %}
 </ul>
 

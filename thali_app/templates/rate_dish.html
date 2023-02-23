@@ -4,12 +4,22 @@
   <h1>Rate {{ dish.name }}</h1>
   <form method="POST">
     {{ form.csrf_token }}
+
     <fieldset>
-      <div class="form-group">
+      <div>
         <label>Stars</label>
-        {{ form.stars(class="form-control") }}
+
+        {{ form.stars }}
+        <ul>
+          {% for error in form.stars.errors %}
+              <li class="error">{{ error }}</li>
+          {% endfor %}
+        </ul>
+
         {{ form.submit }}
       </div>
+
     </fieldset>
   </form>
+
 {% endblock %}

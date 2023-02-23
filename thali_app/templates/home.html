@@ -10,6 +10,8 @@
     {{ city.dishes|length }} dishes
     <p><strong>State</strong> {{ city.state }}</p>
     <p><strong>Country</strong> {{ city.country }}</p>
+    <a href="/city/{{ city.id }}"><img src="{{ city.photo_url }}" alt="{{ city.name }}" width="100px"></a>
+
 </div>
 {% endfor %}
 

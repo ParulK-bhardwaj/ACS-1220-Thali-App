@@ -44,6 +44,14 @@
 
         {{ form.short_desc.label }}
         {{ form.short_desc }}
+        <ul>
+            {% for error in form.short_desc.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+        {{ form.photo_url.label }}
+        {{ form.photo_url }}
 
         {{ form.submit }}
     </fieldset>

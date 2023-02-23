@@ -2,6 +2,9 @@
 {% block content %}
 
 <h1>City - {{ city.name }}</h1>
+
+<p><img src="{{ city.photo_url }}" width="250px" height="250px"></p>
+
 <p>
     <strong>State: </strong> {{ city.state }}
 </p>
@@ -12,6 +15,10 @@
 
 <p>
     <strong>Country: </strong> {{ city.country }}
+</p>
+
+<p>
+    <strong> About: </strong> {{ city.short_desc }}
 </p>
 
 <p>

@@ -33,6 +33,7 @@ def new_city():
             region=form.region.data,
             country=form.country.data,
             short_desc=form.short_desc.data,
+            photo_url = form.photo_url.data,
             created_by=current_user
         )
         db.session.add(new_city)
@@ -57,8 +58,6 @@ def new_dish():
             photo_url=form.photo_url.data,
             where_to_eat=form.where_to_eat.data,
             city=form.city.data,
-            state = form.state.data,
-            country = form.country.data,
             created_by=current_user
         )
         
@@ -87,14 +86,13 @@ def city_edit(city_id):
     form = CityForm(obj=city)
     print(form.name)
     if form.validate_on_submit():
-        print(f"????????{city.id}")
         city.name = form.name.data
         city.state = form.state.data
         city.region = form.region.data
         city.country = form.country.data
         city.short_desc = form.short_desc.data
+        city.photo_url = form.photo_url.data
         city.created_by = current_user
-        # form.populate_obj(city)
 
         db.session.commit()
       
@@ -157,8 +155,8 @@ def dish_edit(dish_id):
         return redirect(url_for("main.dish_detail", dish_id=dish.id))
 
     # Set state and country fields based on selected city
-    if dish.city:
-        form.set_city_info(dish.city)
+    # if dish.city:
+    #     form.set_city_info(dish.city)
 
     return render_template('dish_edit.html', dish=dish, form=form)
 

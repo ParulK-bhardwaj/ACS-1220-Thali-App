@@ -10,9 +10,20 @@
 
         {{ form.name.label }}
         {{ form.name }}
+        <ul>
+            {% for error in form.name.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
 
         {{ form.short_desc.label }}
         {{ form.short_desc }}
+
+        <ul>
+            {% for error in form.short_desc.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
 
         {{ form.category.label }}
         {{ form.category }}
@@ -23,14 +34,14 @@
         {{ form.city.label }}
         {{ form.city }}
 
-        <!-- {{ form.state.label }}
-        {{ form.state }}
-
-        {{ form.country.label }}
-        {{ form.country }} -->
-
         {{ form.where_to_eat.label }}
         {{ form.where_to_eat }}
+
+        <ul>
+            {% for error in form.where_to_eat.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
 
         {{ form.submit }}
     </fieldset>

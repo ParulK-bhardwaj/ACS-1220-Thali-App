@@ -27,8 +27,10 @@ class CityForm(FlaskForm):
     ])
     short_desc = StringField("Short Description",
         validators=[
-            Length(min=0, max=250, message= "The description needs to be less than 250 characters")
+            Length(min=0, max=1000, message= "The description needs to be less than 250 characters")
     ])
+    photo_url = StringField("Photo URL")
+    
     submit = SubmitField("Submit")
 
 class DishForm(FlaskForm):
@@ -36,25 +38,24 @@ class DishForm(FlaskForm):
     name = StringField("Dish Name",
         validators=[
             DataRequired(),
-            Length(min=3, max=80, message= "The dish name needs to be between 3 to 80 charcaters")
+            Length(min=3, max=80, message= "The dish name needs to be between 3 to 80 characters")
     ])
     short_desc = StringField("Short Description",
         validators=[
-            Length(min=0, max=250, message= "The description needs to be less than 250 charcaters")
+            Length(min=0, max=500, message= "The description needs to be less than 250 characters")
     ])
     category = SelectField("Category", choices=FoodCategory.choices())
     photo_url = StringField("Photo URL")
     where_to_eat = StringField("Where to Eat",
         validators=[
-            Length(min=0, max=250, message= "The name needs to be less than 250 charcaters")
+            Length(min=0, max=250, message= "The url needs to be less than 250 characters")
     ])
     city = QuerySelectField("City",
         query_factory=lambda: City.query, allow_blank=False)
     
     state = StringField("State")
     country = StringField("Country")
-    
-    
+
     submit = SubmitField("Submit")
 
     def set_city_info(self, city):
@@ -62,5 +63,7 @@ class DishForm(FlaskForm):
             self.country.data = city.country
 
 class RatingForm(FlaskForm):
-    stars = FloatField('Rating', validators=[NumberRange(min=1, max=5, message="Please enter a number between 1 and 5.")])
+    stars = FloatField('Rating', 
+        validators=[
+            NumberRange(min=1, max=5, message="Please enter a number between 1 and 5.")])
     submit = SubmitField('Submit')

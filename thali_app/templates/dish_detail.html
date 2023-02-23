@@ -16,11 +16,12 @@
 
 <p><strong>Category: </strong> {{ dish.category }}</p>
 
-<p><strong>City: </strong> {{ dish.city.name }} </p>
-
-<p><strong>Created By: </strong>{{ dish.created_by }}</p>
+<p><strong>City: </strong> {{ dish.city }} </p>
 
 <form action="/dish/{{ dish.id }}/edit" method="post">
     <input type="submit" value="Edit the Dish">
 </form>
+
+<p>Created By: {{ dish.created_by }}</p>
+
 {% endblock %}
