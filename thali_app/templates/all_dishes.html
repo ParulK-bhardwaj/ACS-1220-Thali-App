@@ -4,12 +4,20 @@
 <h1>Thali - Must Eats</h1>
 
 <h2>All Dishes</h2>
-<ul>
+<p>There are {{all_dishes|length}} dishes in our data.</p>
+<p>Any of your favorites that we are missing?</p>
+<form action="/new_dish" method="post">
+    <input type="submit" value="Add New Dish">
+</form>
 {% for dish in all_dishes %}
-    <li><a href="/dish/{{ dish.id }}">{{ dish.name }} </a></li>
+<div class="all-dish">
+    <div class="all-dish-info">
+        <a href="/dish/{{ dish.id }}">{{ dish.name }} </a>
         <p> {{ dish.city }} </p>
-        <a href="/dish/{{ dish.id }}"><img src="{{ dish.photo_url }}" alt="{{ dish.name }}" width="100px"></a>
+        <p> Rating: {{ dish.rating }} stars</p>
+    </div>
+    <a href="/dish/{{ dish.id }}"><img src="{{ dish.photo_url }}" alt="{{ dish.name }}" width="100px" height="50px"></a>
+</div>
 {% endfor %}
-</ul>
 
 {% endblock %}

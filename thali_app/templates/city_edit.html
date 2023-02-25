@@ -1,63 +1,63 @@
-{% extends 'base.html' %}
-{% block content %}
+    {% extends 'base.html' %}
+    {% block content %}
 
-<h2>Edit City</h2>
+    <h2>Edit City</h2>
 
-<form method="POST" action="{{ url_for('main.city_edit', city_id=city.id) }}">
-    {{ form.csrf_token }}
-    <fieldset>
-        <legend>Please enter your information:</legend>
-        {{ form.name.label }}
-        {{ form.name }}
+    <form method="POST" action="{{ url_for('main.city_edit', city_id=city.id) }}">
+        {{ form.csrf_token }}
+        <fieldset>
+            <legend>Please enter your information:</legend>
+            {{ form.name.label }}
+            {{ form.name }}
 
-        <ul>
-            {% for error in form.name.errors %}
-                <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
+            <ul>
+                {% for error in form.name.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
 
-        {{ form.state.label }}
-        {{ form.state }}
-        <ul>
-            {% for error in form.state.errors %}
-                <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
+            {{ form.state.label }}
+            {{ form.state }}
+            <ul>
+                {% for error in form.state.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
 
-        {{ form.region.label }}
-        {{ form.region }}
+            {{ form.region.label }}
+            {{ form.region }}
 
-        <ul>
-            {% for error in form.region.errors %}
-                <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
+            <ul>
+                {% for error in form.region.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
 
-        {{ form.country.label }}
-        {{ form.country }}
+            {{ form.country.label }}
+            {{ form.country }}
 
-        <ul>
-            {% for error in form.country.errors %}
-                <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
+            <ul>
+                {% for error in form.country.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
 
-        {{ form.short_desc.label }}
-        {{ form.short_desc }}
+            {{ form.short_desc.label }}
+            {{ form.short_desc }}
 
-        <ul>
-            {% for error in form.short_desc.errors %}
-                <li class="error">{{ error }}</li>
-            {% endfor %}
-        </ul>
+            <ul>
+                {% for error in form.short_desc.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
 
-        {{ form.photo_url.label }}
-        {{ form.photo_url }}
+            {{ form.photo_url.label }}
+            {{ form.photo_url }}
 
-        {{ form.submit }}
+            {{ form.submit }}
 
-    </fieldset>
-</form>
+        </fieldset>
+    </form>
 
-{% endblock %}
+    {% endblock %}
 
