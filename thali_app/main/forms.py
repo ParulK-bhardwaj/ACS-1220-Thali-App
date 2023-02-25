@@ -27,7 +27,7 @@ class CityForm(FlaskForm):
     ])
     short_desc = StringField("Short Description",
         validators=[
-            Length(min=0, max=1000, message= "The description needs to be less than 250 characters")
+            Length(min=0, max=1000, message= "The description needs to be less than 1000 characters")
     ])
     photo_url = StringField("Photo URL")
     
@@ -42,7 +42,7 @@ class DishForm(FlaskForm):
     ])
     short_desc = StringField("Short Description",
         validators=[
-            Length(min=0, max=500, message= "The description needs to be less than 250 characters")
+            Length(min=0, max=500, message= "The description needs to be less than 500 characters")
     ])
     category = SelectField("Category", choices=FoodCategory.choices())
     photo_url = StringField("Photo URL")
@@ -63,7 +63,7 @@ class DishForm(FlaskForm):
             self.country.data = city.country
 
 class RatingForm(FlaskForm):
-    stars = FloatField('Rating', 
+    stars = FloatField('Stars', 
         validators=[
             NumberRange(min=1, max=5, message="Please enter a number between 1 and 5.")])
     submit = SubmitField('Submit')

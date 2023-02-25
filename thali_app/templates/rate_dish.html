@@ -2,22 +2,20 @@
 
 {% block content %}
   <h1>Rate {{ dish.name }}</h1>
-  <form method="POST">
+  <form method="POST" action="{{ url_for('main.rate_dish', dish_id=dish.id) }}">
     {{ form.csrf_token }}
-
     <fieldset>
-      <div>
-        <label>Stars</label>
-
+      <legend>Please enter your rating here:</legend>
+        {{ form.stars.label }}
         {{ form.stars }}
+        
         <ul>
           {% for error in form.stars.errors %}
-              <li class="error">{{ error }}</li>
+            <li class="error">{{ error }}</li>
           {% endfor %}
         </ul>
 
         {{ form.submit }}
-      </div>
 
     </fieldset>
   </form>
