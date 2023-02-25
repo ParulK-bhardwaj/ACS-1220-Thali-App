@@ -17,7 +17,7 @@
         </ul>
 
         {{ form.short_desc.label }}
-        {{ form.short_desc }}
+        {{ form.short_desc(class="short-desc-field") }}
 
         <ul>
             {% for error in form.short_desc.errors %}

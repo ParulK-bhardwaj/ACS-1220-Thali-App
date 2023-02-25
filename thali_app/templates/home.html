@@ -9,8 +9,8 @@
     <div class="all-city-info">
         <a href="/city/{{ city.id }}">{{ city.name }}</a> - 
         {{ city.dishes|length }} dishes
-        <p><strong>State</strong> {{ city.state }}</p>
-        <p><strong>Country</strong> {{ city.country }}</p>
+        <p><strong>State: </strong> {{ city.state }}</p>
+        <p><strong>Country: </strong> {{ city.country }}</p>
     </div>
     <a href="/city/{{ city.id }}"><img src="{{ city.photo_url }}" alt="{{ city.name }}" width="200px" height="150px"></a>
 </div>
