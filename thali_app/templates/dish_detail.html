@@ -3,7 +3,7 @@
 
 <h1>Dish - {{ dish.name }}</h1>
 <form action="/add_to_favorites_list/{{ dish.id }}" method="post">
-    <input type="submit" value="Add to list">
+    <input type="submit" value="Add to Bucket List">
 </form>
 <form action="/dish/{{ dish.id }}/rate" method="post">
     <input type="submit" value="Rate the Dish">
@@ -17,6 +17,8 @@
 <p><strong>Category: </strong> {{ dish.category }}</p>
 
 <p><strong>City: </strong> {{ dish.city }} </p>
+
+<p><strong>Where to Eat: </strong> {{ dish.where_to_eat }} </p>
 
 <form action="/dish/{{ dish.id }}/edit" method="post">
     <input type="submit" value="Edit the Dish">

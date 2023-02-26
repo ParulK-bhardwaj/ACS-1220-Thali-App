@@ -11,12 +11,17 @@
 </form>
 {% for dish in all_dishes %}
 <div class="all-dish">
+    <a href="/dish/{{ dish.id }}"><img src="{{ dish.photo_url }}" alt="{{ dish.name }}" width="100px" height="50px"></a>
+
     <div class="all-dish-info">
         <a href="/dish/{{ dish.id }}">{{ dish.name }} </a>
         <p> {{ dish.city }} </p>
         <p> Rating: {{ dish.rating }} stars</p>
     </div>
-    <a href="/dish/{{ dish.id }}"><img src="{{ dish.photo_url }}" alt="{{ dish.name }}" width="100px" height="50px"></a>
+
+    <form action="/add_to_favorites_list/{{ dish.id }}" method="post">
+        <input type="submit" value="Add to Bucket List">
+    </form>
 </div>
 {% endfor %}
 

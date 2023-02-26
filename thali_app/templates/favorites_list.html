@@ -12,7 +12,8 @@
 
             <p><strong>Description: </strong>{{ dish.short_desc}}</p>
 
-            <p>Where to Eat: {{ where_to_eat }}</p>
+            <p><strong>Where to Eat: </strong>{{ dish.where_to_eat }}</p>
+            <br></br>
 
             <form action="/remove_from_favorites_list/{{ dish.id }}" method="post">
                 <input type="submit" value="Remove dish"/>

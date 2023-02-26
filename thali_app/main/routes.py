@@ -16,9 +16,17 @@ main = Blueprint("main", __name__)
 
 @main.route('/')
 def homepage():
-    all_cities = City.query.all()
+    all_cities = City.query.order_by(City.state).all()
     print(all_cities)
     return render_template('home.html', all_cities=all_cities)
+
+# All dishes route
+@main.route('/all_dishes')
+def all_dishes():
+    all_dishes = Dish.query.order_by(Dish.city_id).all()
+    print(all_dishes)
+    return render_template('all_dishes.html', all_dishes=all_dishes)  
+
 
 @main.route('/new_city', methods=['GET', 'POST'])
 @login_required
@@ -102,38 +110,12 @@ def city_edit(city_id):
     city = City.query.get(city_id)
     return render_template('city_edit.html',city=city, form=form)
 
-# All dishes route
-@main.route('/all_dishes')
-def all_dishes():
-    all_dishes = Dish.query.all()
-    print(all_dishes)
-    return render_template('all_dishes.html', all_dishes=all_dishes)  
-
 # dish details route
 @main.route('/dish/<dish_id>', methods=['GET', 'POST'])
 @login_required
 def dish_detail(dish_id):
     dish = Dish.query.get(dish_id)
     return render_template('dish_detail.html', dish=dish)
-
-# # dish edit
-# @main.route('/dish/<dish_id>/edit', methods=['GET', 'POST'])
-# @login_required
-# def dish_edit(dish_id):
-#     dish = Dish.query.get(dish_id)
-#     # Created a DishForm and pass in `obj=dish`
-#     form = DishForm(obj=dish)
-#     if form.validate_on_submit():
-#         form.populate_obj(dish)
-#         dish.created_by = current_user
-
-#         db.session.add(dish)
-#         db.session.commit()
-#         flash("dish was updated successfully")
-#         return redirect(url_for("main.dish_detail",dish_id=dish.id))
-
-#     dish = Dish.query.get(dish_id)
-#     return render_template('dish_edit.html', dish=dish, form=form)
 
 @main.route('/dish/<dish_id>/edit', methods=['GET', 'POST'])
 @login_required
