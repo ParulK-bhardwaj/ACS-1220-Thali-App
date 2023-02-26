@@ -52,16 +52,9 @@ class DishForm(FlaskForm):
     ])
     city = QuerySelectField("City",
         query_factory=lambda: City.query, allow_blank=False)
-    
-    state = StringField("State")
-    country = StringField("Country")
 
     submit = SubmitField("Submit")
-
-    def set_city_info(self, city):
-            self.state.data = city.state
-            self.country.data = city.country
-
+    
 class RatingForm(FlaskForm):
     stars = FloatField('Stars', 
         validators=[

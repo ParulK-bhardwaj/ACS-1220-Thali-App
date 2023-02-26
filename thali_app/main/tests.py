@@ -9,6 +9,10 @@ from thali_app.models import City, Dish, Rating, User, FoodCategory
 """
 Run these tests with the command:
 python -m unittest thali_app.main.tests
+
+To run one specific test:
+python3 -m unittest thali_app.main.tests.MainTests.test_homepage_logged_out
+
 """
 
 #################################################
@@ -42,13 +46,30 @@ def create_cities():
     c2 = City(
         name='Jaipur',
         state='Rajasthan',
-        region="North-West",
+        region='North-West',
         country="India",
         short_desc="DEF",
         photo_url="https://www.holidify.com/images/tooltipImages/UDAIPUR.jpg",
         created_by=u2
     )
     db.session.add(c2)
+    db.session.commit()
+
+
+def create_dish():
+    # Creates Dishes
+    u1 = User(username='me1', password='password')
+    c1 = City(name="Udaipur",state="",region="",country="india", short_desc="", photo_url="")
+    idli = Dish(
+        name='Idli',
+        short_desc='ABC',
+        category='VEGETARIAN',
+        photo_url='',
+        where_to_eat='',
+        city=c1,
+        created_by=u1
+    )
+    db.session.add(idli)
     db.session.commit()
 
 def create_user():
@@ -290,34 +311,48 @@ class MainTests(unittest.TestCase):
         self.assertIsNotNone(added_rating)
         # Verify that the author was updated in the database
         self.assertEqual(str(added_rating.stars), '4.3')
+
+    # passes
+    def test_favorites_list(self):
+        # Make a GET request to the favorites_list route
+        create_user()
+        login(self.app, 'me1', 'password')
+        # Verify that the response shows the appropriate user info
+        response = self.app.get('/favorites_list')
+        self.assertEqual(response.status_code, 200)
+        response_text = response.get_data(as_text=True)
+        self.assertIn("me1", response_text)
+
     
     # Does not pass
     def test_favorite_dish(self):
         # Login as the user me1
-        create_cities()
         create_user()
         login(self.app, 'me1', 'password')
+        create_dish()
+        # print(create_dish())
         #  Make a POST request to the /add_to_favorites_list/1 route
         post_data = {
             'dish_id': 1
         }
         response = self.app.post('/add_to_favorites_list/1', data=post_data)
         #  Verify that the dish with id 1 was added to the user's favorites
-        user = User.query.filter_by(username='me1').one()
+        user = User.query.get(1)
         dish = Dish.query.get(1)
-        self.assertIn(dish, user.favorites_list_users)
+        self.assertIn(dish, user.favorites_list_user)
 
     def test_unfavorite_dish(self):
         # Login as the user me1, and add dish with id 1 to me1's favorites
-        create_cities()
         create_user()
         login(self.app, 'me1', 'password')
-        #  Make a POST request to the /unfavorite/2 route
+        create_dish()
+        #  Make a POST request to the /remove_from_favorites_list/2
         post_data = {
-            'dish_id': 2
+            'dish_id': 1
         }
-        response = self.app.post('/unfavorite/2', data=post_data)
-        #  Verify that the book with id 2 was removed from the user's favorites
-        user = User.query.filter_by(username='me1').one()
-        dish = Dish.query.get(2)
-        self.assertNotIn(dish, user.favorites_list_users)
+        response = self.app.post('/add_to_favorites_list/1', data=post_data)
+        response = self.app.post('/remove_from_favorites_list/1', data=post_data)
+        #  Verify that the dish with id 1 was removed from the user's favorites
+        user = User.query.get(1)
+        dish = Dish.query.get(1)
+        self.assertNotIn(dish, user.favorites_list_user)

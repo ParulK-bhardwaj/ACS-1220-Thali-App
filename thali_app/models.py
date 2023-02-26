@@ -50,9 +50,6 @@ class Dish(db.Model):
     city_id = db.Column(
         db.Integer, db.ForeignKey('city.id'), nullable=False)
     city = db.relationship('City', back_populates='dishes')
-    state = db.relationship('City', back_populates='dishes')
-    country = db.relationship('City', back_populates='dishes')
-
 
     created_by_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created_by = db.relationship('User')

@@ -166,10 +166,13 @@ def rate_dish(dish_id):
 @main.route('/add_to_favorites_list/<dish_id>', methods=['POST'])
 def add_to_favorites_list(dish_id):
     dish = Dish.query.get(dish_id)
-    current_user.favorites_list_user.append(dish)
-    db.session.add(current_user)
-    db.session.commit()
-    flash("Dish has been successfully added to the favorites list.")
+    if dish in current_user.favorites_list_user:
+        flash('Dish already in favorites.')
+    else:
+        current_user.favorites_list_user.append(dish)
+        db.session.add(current_user)
+        db.session.commit()
+        flash("Dish has been successfully added to the Food Bucket list.")
     return redirect(url_for("main.favorites_list"))
 
 # removes dish from current_user's favorites list
@@ -179,7 +182,7 @@ def remove_from_favorites_list(dish_id):
     current_user.favorites_list_user.remove(dish)
     db.session.add(current_user)
     db.session.commit()
-    flash("Dish has been successfully removed from the favorites list.")
+    flash("Dish has been successfully removed from the Food Bucket list.")
     return redirect(url_for("main.favorites_list"))
 
 # ... get logged in user's favorites list dishes ...

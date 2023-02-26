@@ -264,3 +264,10 @@ input[type=submit] {
     color: rgb(211, 220, 47);
     font-size: 1.5rem;
 }
+
+.flash-message {
+    color: yellow;
+}
+.log-message {
+    color:aquamarine;
+}
