@@ -135,11 +135,6 @@ def dish_edit(dish_id):
         db.session.commit()
         flash("Dish was updated successfully")
         return redirect(url_for("main.dish_detail", dish_id=dish.id))
-
-    # Set state and country fields based on selected city
-    # if dish.city:
-    #     form.set_city_info(dish.city)
-
     return render_template('dish_edit.html', dish=dish, form=form)
 
 # Allow user to rate the dish
