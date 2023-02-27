@@ -12,7 +12,7 @@ class FoodCategory(FormEnum):
     VEGAN = 'Vegan'
     OTHER = 'Other'
 
-class City(db.Model):s
+class City(db.Model):
     """City model."""
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
