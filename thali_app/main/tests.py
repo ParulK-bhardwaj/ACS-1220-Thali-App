@@ -309,7 +309,7 @@ class MainTests(unittest.TestCase):
         # Make GET request
         added_rating = Rating.query.filter_by(stars='4.3').one()
         self.assertIsNotNone(added_rating)
-        # Verify that the author was updated in the database
+        # Verify that the rating was updated in the database
         self.assertEqual(str(added_rating.stars), '4.3')
 
     # passes
