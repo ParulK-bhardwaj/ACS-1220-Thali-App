@@ -6,13 +6,13 @@ from thali_app.utils import FormEnum
 from datetime import datetime
 
 class FoodCategory(FormEnum):
-    """Categories of grocery items."""
+    """Categories of Diet for Dishes."""
     VEGETARIAN = 'Vegetarian'
     NONVEGETARIAN = 'Non-vegetarian'
     VEGAN = 'Vegan'
     OTHER = 'Other'
 
-class City(db.Model):
+class City(db.Model):s
     """City model."""
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
@@ -70,7 +70,7 @@ class Rating(db.Model):
     dish_id = db.Column(db.Integer, db.ForeignKey('dish.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
-# many-to-many relationship between User and GroceryItem for the shopping list items that fixed the log in error. 
+# many-to-many relationship between User and Dish for the Food Bucket list. 
 class User(UserMixin, db.Model):
     "User Model"
     id = db.Column(db.Integer, primary_key=True)
