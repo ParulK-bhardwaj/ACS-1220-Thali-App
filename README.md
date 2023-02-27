@@ -32,4 +32,5 @@ python3 app.py
 
 ## ERD:
 ![App ERD](./Thali-ERD.png)
-### The images are sourced from Google.
+
+### The images used in the project are sourced from Google.
