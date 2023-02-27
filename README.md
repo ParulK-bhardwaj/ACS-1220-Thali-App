@@ -30,5 +30,6 @@ Then run the server:
 python3 app.py
 ```
 
-
+## ERD:
+![App ERD](./Thali-ERD.png)
 ### The images are sourced from Google.
