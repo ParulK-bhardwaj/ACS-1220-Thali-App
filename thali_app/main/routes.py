@@ -1,3 +1,4 @@
+from decimal import ROUND_HALF_UP, Decimal
 from os import abort
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
@@ -136,7 +137,7 @@ def dish_edit(dish_id):
         flash("Dish was updated successfully")
         return redirect(url_for("main.dish_detail", dish_id=dish.id))
     return render_template('dish_edit.html', dish=dish, form=form)
-
+# https://stackoverflow.com/questions/33019698/how-to-properly-round-up-half-float-numbers
 # Allow user to rate the dish
 @main.route('/dish/<dish_id>/rate', methods=['GET', 'POST'])   
 @login_required
@@ -155,7 +156,8 @@ def rate_dish(dish_id):
         if dish:
             total_ratings = sum([rating.stars for rating in dish.ratings])
             num_ratings = len(dish.ratings)
-            dish.rating = round(total_ratings / num_ratings, 2)
+            avg_rating = Decimal(total_ratings / num_ratings).quantize(Decimal('0.00'), rounding=ROUND_HALF_UP)
+            dish.rating = float(avg_rating)
             db.session.commit()
         flash('Thank you for rating this dish!', 'success')
         return redirect(url_for('main.dish_detail', dish_id=dish_id))

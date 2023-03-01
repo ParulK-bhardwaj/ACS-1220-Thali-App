@@ -9,11 +9,9 @@
         <p>Rating</p>
         {{ form.stars }}
         
-        <ul>
-          {% for error in form.stars.errors %}
-            <li class="error">{{ error }}</li>
-          {% endfor %}
-        </ul>
+        {% for error in form.stars.errors %}
+          <li class="error">{{ error }}</li>
+        {% endfor %}
 
         {{ form.submit }}
 
